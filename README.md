@@ -23,4 +23,6 @@ To configure device, enter the IP Address and Token of your Philips Lamp. The Sc
 
 ## This plugin is under development.
 
+# Плагин Xiaomi MiJia Philips LED Lamp для Domoticz
+
 Плагин добавляет поддержку светодиодных ламп Xiaomi MiJia Philips LED Lamp в систему домашней автоматизации Domoticz. Для настройки плагина введите IP адрес и токен устройства. Парамент "сцены" создает селекторный переключатель стандартных сцен Philips LED Lamp, установите его в положение "show" если планируете использовать сцены, в противном случае установите положение флажка в "hide". Флажок Debug предназначен для выявления ошибок и отладки плагина. Для того, чтобы техническая информация не сыпалась в консоль, флажок Debug рекомандуется установить в положение False. 
