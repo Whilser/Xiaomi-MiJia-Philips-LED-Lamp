@@ -38,7 +38,6 @@ import sys
 import time
 import os.path
 import json
-#import datetime
 import random
 
 import Domoticz
