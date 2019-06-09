@@ -2,7 +2,7 @@
 
 The plugin is required to add the Xiaomi MiJia Philips LED Lamp to the list of supported devices Domoticz Home Automation System. The plugin is under development. The plugin was tested with python 3.5.x and Domoticz 4.x installed on Raspberry Pi.
 
-## Currently supported:
+## Поддреживаемые устройства / Currently supported:
 
 * Philips Bulb
 * Philips ZhiRui downlight
