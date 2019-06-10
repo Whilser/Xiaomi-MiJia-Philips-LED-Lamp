@@ -1,12 +1,12 @@
 #
 #           Philips LED Lamp python Plugin for Domoticz
-#           Version 0.1.1
+#           Version 0.1.2
 
 #           Powered by lib python miio https://github.com/rytilahti/python-miio
 #
 
 """
-<plugin key="PhilipsLED" name="Xiaomi MiJia Philips LED Lamp" author="Whilser" version="0.1.1" wikilink="https://www.domoticz.com/wiki/Xiaomi_MiJia_Philips_LED_Lamp" externallink="https://github.com/Whilser/Xiaomi-MiJia-Philips-LED-Lamp">
+<plugin key="PhilipsLED" name="Xiaomi MiJia Philips LED Lamp" author="Whilser" version="0.1.2" wikilink="https://www.domoticz.com/wiki/Xiaomi_MiJia_Philips_LED_Lamp" externallink="https://github.com/Whilser/Xiaomi-MiJia-Philips-LED-Lamp">
     <description>
         <h2>Xiaomi MiJia Philips LED Lamp</h2><br/>
         <h3>Configuration</h3>
@@ -39,6 +39,7 @@ import time
 import os.path
 import json
 import random
+import binascii
 
 import Domoticz
 
@@ -74,9 +75,7 @@ class BasePlugin:
             Domoticz.Device(Name="Scenes", Unit=self.UNIT_SCENES, Type=244, Subtype=62 , Switchtype=18, Options = Options, Used=1).Create()
 
         global Lamp
-
         Lamp = PhilipsBulb(Parameters['Address'],Parameters['Mode1'])
-        Lamp.do_discover()
 
         self.pollTime = random.randrange(5, 16)
         self.nextTimeSync = 0
@@ -133,6 +132,7 @@ class BasePlugin:
             Domoticz.Error('Error send command to {0} with IP {1}. Lamp is not responding, check power/network connection. Errror: {2}'.format(Parameters['Name'], Parameters['Address'], e.__class__))
             Devices[Unit].Update(nValue=0, sValue='Off', TimedOut = True)
             self.handshakeTime = 0
+            self.nextTimeSync = 0
 
     def onNotification(self, Name, Subject, Text, Status, Priority, Sound, ImageFile):
         Domoticz.Debug("Notification: " + Name + "," + Subject + "," + Text + "," + Status + "," + str(Priority) + "," + Sound + "," + ImageFile)
@@ -150,12 +150,12 @@ class BasePlugin:
 
             if self.handshakeTime <= 0:
                 Lamp.do_discover()
+                Domoticz.Debug('Miio ID: {0} '.format(binascii.hexlify(Lamp._device_id).decode()))
                 self.handshakeTime = 3
 
             if (self.nextTimeSync <= 0) and (self.UNIT_LAMP in Devices):
                 Domoticz.Debug('Sync on time: every {0} minute called'.format(self.pollTime))
                 self.nextTimeSync = int((self.pollTime*60)/20)
-                Domoticz.Debug('Next sync time variable set to: {0}'.format(self.nextTimeSync))
 
                 status = Lamp.status()
 
@@ -173,11 +173,11 @@ class BasePlugin:
                     color['ww'] = 0
                     sColor = json.dumps(color)
 
-                    if ((Devices[self.UNIT_LAMP].sValue != str(status.brightness)) or (Devices[self.UNIT_LAMP].nValue != 1)):
+                    if ((Devices[self.UNIT_LAMP].sValue != str(status.brightness)) or (Devices[self.UNIT_LAMP].nValue != 1) or (Devices[self.UNIT_LAMP].TimedOut == True)):
                         Devices[self.UNIT_LAMP].Update(nValue=1, sValue=str(status.brightness), Color = sColor, TimedOut = False)
 
                 if not status.is_on:
-                    if Devices[self.UNIT_LAMP].nValue != 0:
+                    if ((Devices[self.UNIT_LAMP].nValue != 0) or (Devices[self.UNIT_LAMP].TimedOut == True)):
                         Devices[self.UNIT_LAMP].Update(nValue=0, sValue='Off', TimedOut = False)
 
                 if ((self.UNIT_SCENES in Devices) and (str(status.scene*10) != Devices[self.UNIT_SCENES].sValue)):
@@ -189,6 +189,7 @@ class BasePlugin:
             Domoticz.Log('{0} with IP {1} is not responding, check power/network connection. Error: {2}'.format(Parameters['Name'], Parameters['Address'], e.__class__))
             Devices[self.UNIT_LAMP].Update(nValue=0, sValue='Off', TimedOut = True)
             self.handshakeTime = 0
+            self.nextTimeSync = 0
 
     def HandleScenes(self, Level):
         try:
@@ -250,4 +251,5 @@ def DumpConfigToLog():
         Domoticz.Debug("Device nValue:    " + str(Devices[x].nValue))
         Domoticz.Debug("Device sValue:   '" + Devices[x].sValue + "'")
         Domoticz.Debug("Device LastLevel: " + str(Devices[x].LastLevel))
+        Domoticz.Debug("Device TimedOut: " + str(Devices[x].TimedOut))
     return
