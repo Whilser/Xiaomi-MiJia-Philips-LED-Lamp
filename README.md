@@ -4,10 +4,10 @@ This plugin is required to add the Xiaomi MiJia Philips LED Lamp to the list of 
 
 ## Currently supported:
 
-[x] Philips Bulb
-[x] Philips ZhiRui downlight
-[x] Philips ZhiYi ceiling lamp
-[x] etc. Xiaomi MiJia Philips LED lamp (basic support)
+- [x] Philips Bulb
+- [x] Philips ZhiRui downlight
+- [x] Philips ZhiYi ceiling lamp
+- [x] etc. Xiaomi MiJia Philips LED lamp (basic support)
 
 ## Установка / How to Install:
 
