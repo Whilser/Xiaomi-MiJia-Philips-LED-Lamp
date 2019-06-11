@@ -130,7 +130,7 @@ class BasePlugin:
                     Devices[Unit].Update(nValue=1, sValue=str(Level), Color = Color, TimedOut = False)
         except Exception as e:
             Domoticz.Error('Error send command to {0} with IP {1}. Lamp is not responding, check power/network connection. Errror: {2}'.format(Parameters['Name'], Parameters['Address'], e.__class__))
-            Devices[Unit].Update(nValue=0, sValue='Off', TimedOut = True)
+            Devices[Unit].Update(nValue=Devices[Unit].nValue, sValue=Devices[Unit].sValue, TimedOut = True)
             self.handshakeTime = 0
             self.nextTimeSync = 0
 
@@ -150,7 +150,7 @@ class BasePlugin:
 
             if self.handshakeTime <= 0:
                 Lamp.do_discover()
-                Domoticz.Debug('Miio ID: {0} '.format(binascii.hexlify(Lamp._device_id).decode()))
+                Domoticz.Debug('Device ID: {0} '.format(binascii.hexlify(Lamp._device_id).decode()))
                 self.handshakeTime = 3
 
             if (self.nextTimeSync <= 0) and (self.UNIT_LAMP in Devices):
@@ -186,8 +186,7 @@ class BasePlugin:
                     else: Devices[self.UNIT_SCENES].Update(nValue=1, sValue=str(status.scene*10))
 
         except Exception as e:
-            Domoticz.Log('{0} with IP {1} is not responding, check power/network connection. Error: {2}'.format(Parameters['Name'], Parameters['Address'], e.__class__))
-            Devices[self.UNIT_LAMP].Update(nValue=0, sValue='Off', TimedOut = True)
+            Devices[self.UNIT_LAMP].Update(nValue=Devices[self.UNIT_LAMP].nValue, sValue=Devices[self.UNIT_LAMP].sValue, TimedOut = True)
             self.handshakeTime = 0
             self.nextTimeSync = 0
 
