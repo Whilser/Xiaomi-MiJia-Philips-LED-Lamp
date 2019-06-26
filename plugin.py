@@ -191,6 +191,8 @@ class BasePlugin:
             self.nextTimeSync = 0
 
     def HandleScenes(self, Level):
+        if (Level == 0): return
+
         try:
             Lamp.set_scene(int(Level)/10)
 
