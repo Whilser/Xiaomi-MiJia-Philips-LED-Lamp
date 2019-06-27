@@ -28,6 +28,12 @@ This plugin is required to add the Xiaomi MiJia Philips LED Lamp to the list of 
 
     sudo service domoticz restart
 
+## Обновление / How to update:
+
+    cd domoticz/plugins/PhilipsLED
+    git pull
+    sudo service domoticz restart
+
 To configure device, enter the IP Address and Token of your Philips Lamp. The `Scene` parameter creates a selector of the standard Philips lamp scenes. Set the scene parameter `show` to display scenes, otherwise set to `hide`. Plugin creates a Philips LED Lamp and a selector of the standard Philips lamp scenes as an option on request.
 
 ![Domoticz plugin](https://github.com/Whilser/Xiaomi-MiJia-Philips-LED-Lamp/raw/master/images/DomoticzUnit.png)
