@@ -1,6 +1,6 @@
 # Xiaomi MiJia Philips LED Lamp Domoticz Plugin
 
-This plugin is required to add the Xiaomi MiJia Philips LED Lamp to the list of supported devices Domoticz Home Automation System. The plugin was tested with python 3.5.x and Domoticz 4.x installed on Raspberry Pi.
+This plugin is required to add the Xiaomi MiJia Philips LED Lamp to the list of supported devices Domoticz Home Automation System. **Note:** The plugin is under development. The plugin was tested with python 3.5.x and Domoticz 4.x installed on Raspberry Pi.
 
 ![Philis Bulb](https://github.com/Whilser/Xiaomi-MiJia-Philips-LED-Lamp/raw/master/images/PhilipsBulb.png)
 
@@ -38,7 +38,6 @@ To configure device, enter the IP Address and Token of your Philips Lamp. The `S
 
 ![Domoticz plugin](https://github.com/Whilser/Xiaomi-MiJia-Philips-LED-Lamp/raw/master/images/DomoticzUnit.png)
 
-**This plugin is under development.**
 
 # Плагин Xiaomi MiJia Philips LED Lamp для Domoticz
 
