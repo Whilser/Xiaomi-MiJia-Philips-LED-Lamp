@@ -23,7 +23,7 @@ This plugin is required to add the Xiaomi MiJia Philips LED Lamp to the list of 
     cd PhilipsLED
     virtualenv -p python3 .env
     source .env/bin/activate
-    pip3 install python-miio
+    pip3 install python-miio==0.4.6
     deactivate
 
     sudo service domoticz restart
