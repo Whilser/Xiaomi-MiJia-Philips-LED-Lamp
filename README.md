@@ -38,6 +38,9 @@ To configure device, enter the IP Address and Token of your Philips Lamp. The `S
 
 ![Domoticz plugin](https://github.com/Whilser/Xiaomi-MiJia-Philips-LED-Lamp/raw/master/images/DomoticzUnit.png)
 
+If you liked it, buy me coffee! <br>
+<a href="https://www.buymeacoffee.com/K8oYBpO" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/lato-orange.png" alt="If you liked it, buy me coffee!" style="height: 51px !important;width: 217px !important;" ></a>
+
 
 # Плагин Xiaomi MiJia Philips LED Lamp для Domoticz
 
